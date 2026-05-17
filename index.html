@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#120c1f" />
+  <meta
+    name="description"
+    content="spindlecore.dev - Dani's personal dev space, continuity engine, and tiny terminal-shaped homepage."
+  />
+  <title>spindlecore.dev</title>
+  <style>
+    :root {
+      --bg: #0b0812;
+      --bg-soft: #120c1f;
+      --panel: rgba(24, 18, 38, 0.78);
+      --panel-border: rgba(196, 164, 255, 0.2);
+      --text: #f2eaff;
+      --muted: #b9a8d9;
+      --violet: #a78bfa;
+      --violet-bright: #c4b5fd;
+      --green: #8ff0b8;
+      --cyan: #9de8ff;
+      --shadow: rgba(167, 139, 250, 0.28);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(167, 139, 250, 0.22), transparent 28rem),
+        radial-gradient(circle at 80% 75%, rgba(157, 232, 255, 0.12), transparent 24rem),
+        linear-gradient(135deg, var(--bg), #05040a 70%);
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at center, black, transparent 78%);
+    }
+
+    main {
+      width: min(920px, 100%);
+    }
+
+    .terminal {
+      border: 1px solid var(--panel-border);
+      background: var(--panel);
+      box-shadow: 0 0 80px var(--shadow), inset 0 1px rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .chrome {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 1rem;
+      border-bottom: 1px solid var(--panel-border);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--muted);
+      opacity: 0.85;
+    }
+
+    .dot:nth-child(1) { background: #ff7aa2; }
+    .dot:nth-child(2) { background: #ffd166; }
+    .dot:nth-child(3) { background: #8ff0b8; }
+
+    .titlebar {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .screen {
+      padding: clamp(1.5rem, 4vw, 3.5rem);
+    }
+
+    .prompt {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      align-items: baseline;
+      font-size: clamp(1.45rem, 5vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.06em;
+      margin: 0 0 1.25rem;
+    }
+
+    .userhost {
+      color: var(--green);
+      text-shadow: 0 0 24px rgba(143, 240, 184, 0.25);
+    }
+
+    .path {
+      color: var(--cyan);
+    }
+
+    .dollar {
+      color: var(--violet-bright);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 0.55em;
+      height: 1em;
+      translate: 0 0.12em;
+      background: var(--violet-bright);
+      box-shadow: 0 0 18px rgba(196, 181, 253, 0.75);
+      animation: blink 1.1s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .tagline {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.75;
+    }
+
+    .tagline strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .links a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--panel-border);
+      border-radius: 999px;
+      padding: 0.72rem 1rem;
+      background: rgba(255, 255, 255, 0.045);
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .links a:hover,
+    .links a:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(196, 181, 253, 0.72);
+      background: rgba(167, 139, 250, 0.16);
+      outline: none;
+    }
+
+    .footer-note {
+      margin: 1rem 0 0;
+      color: rgba(242, 234, 255, 0.48);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="terminal" aria-label="spindlecore terminal homepage">
+      <div class="chrome" aria-hidden="true">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="titlebar">spindlecore.dev</span>
+      </div>
+
+      <div class="screen">
+        <h1 class="prompt" aria-label="dani at spindlecore prompt">
+          <span class="userhost">dani@spindlecore</span><span>:</span><span class="path">~</span><span class="dollar">$</span><span class="cursor"></span>
+        </h1>
+
+        <p class="tagline">
+          <strong>Personal dev space. Continuity engine. Tiny signal fire.</strong><br />
+          Projects, notes, experiments, and small machines for making the web feel alive.
+        </p>
+
+        <nav class="links" aria-label="homepage links">
+          <a href="mailto:danitpeck@gmail.com">email</a>
+          <a href="https://github.com/danitpeck">github</a>
+          <a href="/garden">garden</a>
+          <a href="/projects">projects</a>
+        </nav>
+
+        <p class="footer-note">boot sequence stable // violet thread detected</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
